@@ -1,0 +1,8 @@
+hello world
+
+<%= form_for(@order, url: { action: :confirm }) do |f| %>
+<p>トラックのナンバー<%= f.text_field :truck ,:required => true%></p>
+<p>コンテナ番号<%= f.text_field :cntr_number ,:required => true%></p>
+<p>日付<%= f.date_field :date ,:required => true%></p>
+<p><%= f.submit '確認画面へ'%></p>
+<% end %>
