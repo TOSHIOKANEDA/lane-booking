@@ -1,7 +1,19 @@
-この画面をプリントアウトしてください。
 
-<p>港：<%= @order.truck %></p>
-<p>日付：<%= @order.date %></p>
-<p>コンテナ：<%= @order.cntr_number %></p>
+
+<div class="main-container">
+<p>この画面をプリントアウトしてください。</p>
+<center><h2>トラックのナンバー：<%= @order.truck %></h2>
+<h2>日付：<%= @order.date %></h2>
+<h2>コンテナナンバー：<%= @order.cntr_number %></h2>
+<h2>時間帯：
+<% @order.t_range = "9時から10時" if @order.t_range == "9-10" %>
+<% @order.t_range = "10時から11時" if @order.t_range == "10-11" %>
+<% @order.t_range = "11時から12時" if @order.t_range == "11-12" %>
+<% @order.t_range = "12時から13時" if @order.t_range == "12-13" %>
+<% @order.t_range = "13時から14時" if @order.t_range == "13-14" %>
+<% @order.t_range = "14時から15時" if @order.t_range == "14-15" %>
+<% @order.t_range = "15時から16時" if @order.t_range == "15-16" %>
+<%= @order.t_range %></h2></center>
+</div>
 
  <%= link_to "トップページ", "/" %>

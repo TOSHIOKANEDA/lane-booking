@@ -1,0 +1,17 @@
+<% user = User.find(params[:id])%>
+      
+      <strong>”<%= user.email %>”さん更新</strong>
+       <%= form_with model: @user, method: :patch, local: true do |f| %>
+       <% user.email %>
+      </div>
+      
+      <strong>選択可能時間帯指定</strong>
+      <p><%= f.select :authority, [["全時間帯", "2"], ["お昼のみ", "3"]] %></p>
+      
+      
+      <strong><%= f.submit '保存', {:class => "btn-square-pop2"} %></strong>
+      <% end %>
+    
+
+      <strong><%= link_to 'USERの削除', destroy_session_user_path %></strong>
+

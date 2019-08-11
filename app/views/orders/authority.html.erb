@@ -1,0 +1,5 @@
+<h3>一覧</h3>
+<% @non_login_users.each do |r| %>
+<%= r.email%>
+<%= link_to '更新', "/users/#{r.id}/edit", method: :get %>
+<% end %>
