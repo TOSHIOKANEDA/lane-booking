@@ -24,4 +24,20 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  
+  def edit
+  @user = User.find_by(id: params[:format])
+  end
+  
+  def update
+  user = User.find(params[:id])
+  user.update(user_params)
+  redirect_to "/orders/authority"
+  end
+  
+  private
+  def user_params
+    params.permit(:authority, :email)
+  end  
+  
 end
