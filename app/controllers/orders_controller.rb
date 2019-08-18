@@ -28,7 +28,11 @@ before_action :authenticate_user!
   end
   
   def order_params
-  params.require(:order).permit(:truck, :cntr_number, :date, :t_range)
+  params.require(:order).permit(:truck, :cntr_number, :date, :t_range, :purpose)
   end
 
 end
+
+# 1=メール承認者
+# 2=全時間帯
+# 3=昼時間帯のみ

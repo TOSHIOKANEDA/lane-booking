@@ -1,20 +1,30 @@
+<% if @order.errors.any? %>
+    <h2>指定された日付に誤りがあります”<%= @order.date %>”</h2>
 
+<%else%>
 
 <div class="main-container">
-<p>この画面をプリントアウトしてください。</p>
+<p>この画面をプリントアウトしてください。もしくはスマホ画面を見せてください</p>
 <center><h2>トラックのナンバー：<%= @order.truck %></h2>
 <h2>日付：<%= @order.date %></h2>
 <h2>コンテナナンバー：<%= @order.cntr_number %></h2>
+<h2>種別：
+<% purpose = "空バンPICK" if @order.purpose == 1 %>
+<% purpose = "実入り搬入" if @order.purpose == 2 %>
+<% purpose = "実入り搬出" if @order.purpose == 3 %>
+<%= purpose %></h2>
 <h2>時間帯：
-<% @order.t_range = "9時から10時" if @order.t_range == "9-10" %>
-<% @order.t_range = "10時から11時" if @order.t_range == "10-11" %>
-<% @order.t_range = "11時から12時" if @order.t_range == "11-12" %>
-<% @order.t_range = "12時から13時" if @order.t_range == "12-13" %>
-<% @order.t_range = "13時から14時" if @order.t_range == "13-14" %>
-<% @order.t_range = "14時から15時" if @order.t_range == "14-15" %>
-<% @order.t_range = "15時から16時" if @order.t_range == "15-16" %>
-<%= @order.t_range %></h2></center>
-<h1>※※時間内であってもタイミングによっては、すぐに入場できない場合があることを理解し、 <br>必ず守衛の支持に従います</h1>
+<% t_range = "9時から10時" if @order.t_range == "9-10" %>
+<% t_range = "10時から11時" if @order.t_range == "10-11" %>
+<% t_range = "11時から12時" if @order.t_range == "11-12" %>
+<% t_range = "12時から13時" if @order.t_range == "12-13" %>
+<% t_range = "13時から14時" if @order.t_range == "13-14" %>
+<% t_range = "14時から15時" if @order.t_range == "14-15" %>
+<% t_range = "15時から16時" if @order.t_range == "15-16" %>
+<%= t_range %></h2></center>
+<h1>※時間内であってもタイミングにより、すぐ入場できない場合があることを理解し、必ず守衛の指示に従います※</h1>
 </div>
 
+<%end%>
  <%= link_to "トップページ", "/" %>
+ 
