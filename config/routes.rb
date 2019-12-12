@@ -5,10 +5,16 @@ devise_for :users
   post "orders/confirm" =>  "orders#confirm"
   post "orders/done" =>  "orders#done"
   get 'orders/authority'  =>  'orders#authority'
+  # 実験
+  # get   'orders/download'  =>  'orders#downdload'
+  # 実験
   devise_scope :user do
   get 'users/:id/edit'  =>  'users/sessions#edit'
   patch 'users/:id/edit' => 'users/sessions#update'
   delete 'users/:id' => 'users/sessions#destroy'
   get 'users/:id'  =>  'users/sessions#destroy'
   end
+  
+  get    'users/:id/show'   =>  'users#show'
+  
 end

@@ -1,0 +1,41 @@
+* {
+    letter-spacing: 3px;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    background-color: #f1b400;
+    padding: 150px 30px 80px;
+    text-align: center;
+}
+
+.header{
+    height: 20%;
+    width: 100%;
+    
+}
+
+.container{
+    height: 50%;
+    width: 100%;
+    text-align: left;
+}
+
+.elements{
+    height: 15px;
+    margin: 50px;
+}
+
+footer{
+    height: 30%;
+    margin: 70px;
+    text-align: right;
+}
+
+
+.title-name {
+    font-size: 2rem;
+    color: #888;
+    letter-spacing: 3px;
+}

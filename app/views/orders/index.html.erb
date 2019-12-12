@@ -1,51 +1,81 @@
+
 <%if current_user.authority.blank?%>
-<p>このサイトは限定された業者さんのみアクセス可能です。新規メールアドレスを登録した場合には、担当者までご連絡をお願いします。</p>
+<p>このサイトは限定された業者さんのみアクセス可能です。___________までご連絡ください。その後登録処理を致しましてテスト運用専用サイトへのアクセスが可能となります。</p>
 <%end%>
 
-<%unless current_user.authority.blank? %>
+<% unless current_user.authority.blank? %>
 
+  <div class ="header">
+  <p><%= current_user.email%>さんこんにちは。レーンBookingページへようこそ！</p>
+  </div>
+  
+  <div class ="container">
+    <%if current_user.authority == 4 %>
+        <%= form_for(@order, url: { action: :confirm }) do |f| %>
+          <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
+          <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
+          <div class = "elements">（テスト）日にち<%= f.select :date, 
+            [["2020/01/15", "2020/01/15"],
+            ["2020/01/16", "2020/01/16"]], 
+            :prompt => "選択してください" ,:required => true%></div>
+          <div class = "elements">（テスト）種別<%= f.select :purpose, 
+            [["空バンPICK", "1"]],
+            :prompt => "選択してください" ,:required => true%></div>
+          <div class = "elements">時間帯<%= f.select :t_range,
+            [["08:00から08:30", "8-8.5"],
+            ["08:30から09:00", "8.5-9"],
+            ["09:00から09:30", "9-9.5"],
+            ["09:30から10:00", "9.5-10"],
+            ["10:00から10:30", "10-10.5"],
+            ["10:30から11:00", "10.5-11"],
+            ["11:00から11:30", "11-11.5"]], 
+            :prompt => "選択してください" ,:required => true %></div>
+          
 
-<p><%= current_user.email%>さんこんにちは。レーンBookingページへようこそ！</p>
-
-
-<%= form_for(@order, url: { action: :confirm }) do |f| %>
-<p>トラックのナンバー<%= f.text_field :truck ,:required => true%></p>
-<p>コンテナ番号<%= f.text_field :cntr_number ,:required => true%></p>
-<p>日付<%= f.date_field :date ,:required => true%></p>
-<p>種別<%= f.select :purpose, 
-    [["空バンPICK", "1"],
-    ["実入り搬入", "2"],
-    ["実入り搬出", "3"]], 
-    :prompt => "選択してください" ,:required => true%></p>
-<%if current_user.authority == 2 %>
-    <p>時間帯<%= f.select :t_range,
-    [["9時から10時", "9-10"],
-    ["10時から11時", "10-11"],
-    ["11時から12時", "11-12"],
-    ["12時から13時", "12-13"],
-    ["13時から14時", "13-14"],
-    ["14時から15時", "14-15"],
-    ["15時から16時", "15-16"]], 
-    :prompt => "選択してください" ,:required => true %></p>
-    <p><%= f.submit '確認画面へ'%></p>
+          <div class = "elements"><%= f.submit '確認画面へ'%></div>
+        <% end %>
+      <% end %>
+          
+    <%if current_user.authority == 2 %>
+      <%= form_for(@order, url: { action: :confirm }) do |f| %>
+        <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
+        <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
+        <div class = "elements">日付<%= f.date_field :date, :required => true%></div>
+        <div class = "elements">時間帯<%= f.select :t_range,
+          [["9時から10時", "9-10"],
+          ["10時から11時", "10-11"],
+          ["11時から12時", "11-12"],
+          ["12時から13時", "12-13"],
+          ["13時から14時", "13-14"],
+          ["14時から15時", "14-15"],
+          ["15時から16時", "15-16"]], 
+          :prompt => "選択してください" ,:required => true %></div>
+        <div class = "elements"><%= f.submit '確認画面へ'%></div>
+      <% end %>
     <% end %>
-
-<%if current_user.authority == 3 %>
-    <p>時間帯<%= f.select :t_range, 
-    [["11時から12時", "11-12"],
-    ["12時から13時", "12-13"]],
-    :prompt => "選択してください" ,:required => true%></p>
-    <p><%= f.submit '確認画面へ'%></p>
+      
+    <%if current_user.authority == 3 %>
+      <%= form_for(@order, url: { action: :confirm }) do |f| %>
+        <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
+        <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
+        <div class = "elements">日付<%= f.date_field :date, :required => true%></div>
+        <div class = "elements">時間帯<%= f.select :t_range, 
+          [["11時から12時", "11-12"],
+          ["12時から13時", "12-13"]],
+          :prompt => "選択してください" ,:required => true%></div>
+        <div class = "elements"><%= f.submit '確認画面へ'%></div>
+      <% end %>
     <% end %>
+  </div>
+  
+  
+  
+    <%if current_user.authority == 1 %>
+      <p><%= link_to "登録ユーザー管理", "orders/authority" %></p>
+    <%end%>
+    
 <%end%>
 
 
 
-
-<%if current_user.authority == 1 %>
-<p><%= link_to "登録ユーザー管理", "orders/authority" %></p>
-<%end%>
-
-<%end%>
-
-<%= link_to "ログアウト", destroy_user_session_path, method: "delete" %>
+<footer><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %></footer>

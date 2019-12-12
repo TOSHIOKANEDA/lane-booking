@@ -3,7 +3,7 @@
       <strong>”<%= user.email %>”さん更新</strong>
        <%= form_with model: @user, method: :patch, local: true do |f| %>
       <strong>選択可能時間帯指定</strong>
-      <p><%= f.select :authority, [["全時間帯", "2"], ["お昼のみ", "3"]] %></p>
+      <p><%= f.select :authority, [["全時間帯", "2"], ["お昼のみ", "3"],["テスト", "4"]] %></p>
       <strong><%= f.submit '保存'%></strong>
       <% end %>
     
