@@ -78,4 +78,4 @@
 
 
 
-<footer><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %></footer>
+<footer><%= link_to "ログアウト", destroy_user_session_path, method: "delete" %><a href="/users/<%= current_user.id %>/show">マイページ</a></footer>

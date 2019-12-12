@@ -1,2 +1,28 @@
-<a href="/users/<%= current_user.id %>">マイページ</a>
 
+マイページ
+
+<table class = "bbb">
+  <h3>一覧</h3>
+<%= will_paginate @orders %>
+  <th>予約日</th>
+  <th>予約日時</th>
+  <th>コンテナ番号</th>
+  <th>B/L番号</th>
+  <th></th>
+  <th></th>
+  <% @orders.each do |order| %>
+  <% if user_signed_in? && current_user.id == order.user_id %>
+    <tr>
+      <td><%= order.date%></td>
+      <td><%= order.t_range%></td>
+      <td><%= order.cntr_number%></td>
+      <td><%= order.truck%></td>
+      <td><%= link_to 'トラック番号とコンテナ番号の更新', "/orders/#{order.id}/edit", method: :get%></td>
+      <td><%= link_to  "キャンセル", order_path(order.id), method: :delete, data: { confirm: '本当にキャンセルして良いですか?' }%></td>
+
+    </tr>
+  <% end %>
+
+
+  <% end %>
+  

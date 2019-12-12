@@ -1,0 +1,8 @@
+
+<%if current_user.authority == 4 %>
+    <%= form_for(@order, url: { action: :update }) do |f| %>
+      <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
+      <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
+    <%= f.submit '変更する'%>
+    <% end %>
+<% end %>

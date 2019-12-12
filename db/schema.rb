@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_134757) do
+ActiveRecord::Schema.define(version: 2019_12_12_132149) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "cntr_number"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2019_12_11_134757) do
     t.integer "purpose"
     t.string "booking"
     t.string "ps_card"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "slots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -47,10 +49,11 @@ ActiveRecord::Schema.define(version: 2019_12_11_134757) do
     t.datetime "updated_at", null: false
     t.integer "authority"
     t.string "driver"
-    t.integer "phone"
+    t.string "phone"
     t.string "company"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "users"
 end

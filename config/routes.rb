@@ -2,12 +2,11 @@ Rails.application.routes.draw do
 
 devise_for :users
   root 'orders#index'
+  resources :orders, :only => [:update, :destroy, :edit]
+  
   post "orders/confirm" =>  "orders#confirm"
   post "orders/done" =>  "orders#done"
   get 'orders/authority'  =>  'orders#authority'
-  # 実験
-  # get   'orders/download'  =>  'orders#downdload'
-  # 実験
   devise_scope :user do
   get 'users/:id/edit'  =>  'users/sessions#edit'
   patch 'users/:id/edit' => 'users/sessions#update'

@@ -17,10 +17,27 @@ before_action :authenticate_user!
     render :action => 'confirm'
   end
   
+  def edit
+  @order = Order.find(params[:id])
+  end
+  
+  def update
+    @order = Order.find_by(id: params[:id])
+    @order.update(order_params)
+    redirect_to controller: 'users', action: 'show'
+  end
+  
+  def destroy
+    @order = Order.find_by(id: params[:id])
+    @order.destroy
+    redirect_to controller: 'users', action: 'show', flash: {success: 'キャンセルしました'}
+  end
+  
 
   
   def done
      @order = Order.new(order_params)
+     @order.user_id = current_user.id 
      limits = Order.where(t_range: @order.t_range, date: @order.date).count
      
       if params[:back]
