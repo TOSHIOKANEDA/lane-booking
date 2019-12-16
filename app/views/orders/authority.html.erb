@@ -1,9 +1,20 @@
-<h3>一覧</h3>
-<% @non_login_users.each do |r| %>
-<p><%= r.email%>
-<%= link_to '更新', "/users/#{r.id}/edit", method: :get %></p>
-<% end %>
+<%if current_user.authority == 1 %>
 
-
-
-<p><%= link_to "インデックス", "/" %></p>
+  <h3>予約者一覧</h3>
+  <% @non_login_users.each do |r| %>
+  <p><%= r.email%>
+  <%= link_to '更新', "/users/#{r.id}/edit", method: :get %></p>
+  <% end %>
+  
+  <h1>付き合わせ</h1>
+  <%= form_with url: orders_list_path, method: :get, local: true do |f| %>
+    <%= f.label "時間帯"%>
+    <%= f.select :t_range, ['8-8.5', '8.5-9', '9-9.5'] %>
+    <%= f.label "日付"%>
+    <%= f.select :date, ["2020-01-15","2020-01-16"] %>
+    <%= f.submit "リスト抽出" %>
+  <% end %>
+  
+  
+  <p><%= link_to "インデックス", "/" %></p>
+<%end%>

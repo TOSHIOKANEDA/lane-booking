@@ -2,8 +2,8 @@ Rails.application.routes.draw do
 
 devise_for :users
   root 'orders#index'
-  resources :orders, :only => [:update, :destroy, :edit]
-  
+  resources :orders, :only => [:update, :destroy, :edit, :new]
+  get 'orders/list' => 'orders#list'
   post "orders/confirm" =>  "orders#confirm"
   post "orders/done" =>  "orders#done"
   get 'orders/authority'  =>  'orders#authority'

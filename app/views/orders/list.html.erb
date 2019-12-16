@@ -1,0 +1,30 @@
+<%if current_user.authority == 1 %>
+<table>
+  <thead>
+    <tr>
+      <p><%= params[:t_range]%></p>
+      <p><%= params[:date]%></p>
+      <th>トラックのナンバー</th>
+      <th>コンテナ番号</th>
+      <th>担当者名</th>
+      <th>電話番号</th>
+      <th>会社名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @lists.each do |list| %>
+      <tr>
+        <td><%= list.truck %></td>
+        <td><%= list.cntr_number %></td>
+        <td><%= list.user.driver %></td>
+        <td><%= list.user.phone %></td>
+        <td><%= list.user.company %></td>
+        <td><%= link_to "削除",order_path(list.id), method: :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "インデックス", orders_authority_path %></p>
+
+<% end %>

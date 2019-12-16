@@ -6,7 +6,7 @@
 <% unless current_user.authority.blank? %>
 
   <div class ="header">
-  <p><%= current_user.email%>さんこんにちは。レーンBookingページへようこそ！</p>
+  <p><%= current_user.driver%>さんこんにちは。レーンBookingページへようこそ！</p>
   </div>
   
   <div class ="container">
@@ -14,12 +14,12 @@
         <%= form_for(@order, url: { action: :confirm }) do |f| %>
           <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
           <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
-          <div class = "elements">（テスト）日にち<%= f.select :date, 
-            [["2020/01/15", "2020/01/15"],
-            ["2020/01/16", "2020/01/16"]], 
+          <div class = "elements">（テスト）日にち
+            <%= f.select :date, 
+            ["2020-01-15","2020-01-16"],
             :prompt => "選択してください" ,:required => true%></div>
           <div class = "elements">（テスト）種別<%= f.select :purpose, 
-            [["空バンPICK", "1"]],
+            [["実入り搬出", "1"]],
             :prompt => "選択してください" ,:required => true%></div>
           <div class = "elements">時間帯<%= f.select :t_range,
             [["08:00から08:30", "8-8.5"],
@@ -30,11 +30,10 @@
             ["10:30から11:00", "10.5-11"],
             ["11:00から11:30", "11-11.5"]], 
             :prompt => "選択してください" ,:required => true %></div>
-          
-
           <div class = "elements"><%= f.submit '確認画面へ'%></div>
-        <% end %>
-      <% end %>
+          <% end %>
+        
+    <% end %>
           
     <%if current_user.authority == 2 %>
       <%= form_for(@order, url: { action: :confirm }) do |f| %>
