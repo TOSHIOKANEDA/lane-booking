@@ -12,6 +12,7 @@ devise_for :users
   patch 'users/:id/edit' => 'users/sessions#update'
   delete 'users/:id' => 'users/sessions#destroy'
   get 'users/:id'  =>  'users/sessions#destroy'
+  resources :slots, :only => [:update, :edit, :show]
   end
   
   get    'users/:id/show'   =>  'users#show'

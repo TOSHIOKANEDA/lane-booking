@@ -1,14 +1,14 @@
-<%if current_user.authority == 1 %>
+
 <table>
   <thead>
     <tr>
-      <p><%= params[:t_range]%></p>
-      <p><%= params[:date]%></p>
       <th>トラックのナンバー</th>
       <th>コンテナ番号</th>
       <th>担当者名</th>
       <th>電話番号</th>
       <th>会社名</th>
+      <th>日時</th>
+      <th>予約時間</th>
     </tr>
   </thead>
   <tbody>
@@ -19,6 +19,8 @@
         <td><%= list.user.driver %></td>
         <td><%= list.user.phone %></td>
         <td><%= list.user.company %></td>
+        <td><%= list.date %></td>        
+        <td><%= list.slot.begin_time %>から<%= list.slot.end_time %></td>
         <td><%= link_to "削除",order_path(list.id), method: :delete %></td>
       </tr>
     <% end %>
@@ -27,4 +29,3 @@
 
 <p><%= link_to "インデックス", orders_authority_path %></p>
 
-<% end %>

@@ -1,6 +1,6 @@
-<%if current_user.authority == 1 %>
 
-  <h3>予約者一覧</h3>
+
+  <h1>予約者一覧</h1>
   <% @non_login_users.each do |r| %>
   <p><%= r.email%>
   <%= link_to '更新', "/users/#{r.id}/edit", method: :get %></p>
@@ -8,13 +8,18 @@
   
   <h1>付き合わせ</h1>
   <%= form_with url: orders_list_path, method: :get, local: true do |f| %>
-    <%= f.label "時間帯"%>
-    <%= f.select :t_range, ['8-8.5', '8.5-9', '9-9.5'] %>
+    <%= f.label "予約時間"%>
+    <%= f.select :slot_id, Slot.all.map{|o| [o.begin_time, o.id]},:required => true%></div>
     <%= f.label "日付"%>
-    <%= f.select :date, ["2020-01-15","2020-01-16"] %>
+    <%= f.date_field :date, :required => true%>
     <%= f.submit "リスト抽出" %>
   <% end %>
   
+  <h1>時間帯設定</h1>
+  <% @slots.each do |slot| %>
+  <p><%= slot.begin_time%>から<%= slot.end_time%>までの枠：<%= slot.max_num%>本まで
+  <%= link_to '更新', edit_slot_path(slot.id), method: :get %></p>
+  <% end %>
+
   
   <p><%= link_to "インデックス", "/" %></p>
-<%end%>

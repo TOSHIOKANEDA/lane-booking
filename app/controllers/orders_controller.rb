@@ -1,25 +1,26 @@
 class OrdersController < ApplicationController
 before_action :authenticate_user!
+before_action :set_params, only: [:done, :confirm]
+before_action :authorized_user, only: [:authority, :list]
+
 
   def authority
-  redirect_to action: :index unless current_user.authority == 1
-  @users = User.paginate(page: params[:page], per_page: 10)
-  @non_login_users = @users.reject{|user| user.id == current_user.id }
+    @users = User.paginate(page: params[:page], per_page: 10)
+    @non_login_users = @users.reject{|user| user.id == current_user.id }
+    @slots = Slot.all
   end
-  
- 
   
   def index
     @order = Order.new
+    @slots = Slot.all
   end
   
   def confirm
-    @order = Order.new(order_params)
     render :action => 'confirm'
   end
   
   def edit
-  @order = Order.find(params[:id])
+    @order = Order.find(params[:id])
   end
   
   def update
@@ -35,24 +36,23 @@ before_action :authenticate_user!
   end
   
   def list
-    redirect_to action: :index unless current_user.authority == 1
-    if params[:t_range].present?
-      @lists = Order.where(t_range: params[:t_range]).where(date: params[:date])
+    given = Order.where(date: params[:date]).where(slot_id: params[:slot_id])
+    if given.present?
+      @lists = given
     else
-      @lists = Order.none
+      flash[:notice] = "予約はありません。"
+      redirect_to orders_authority_path
     end
   end
-
+  
   
   def done
-     @order = Order.new(order_params)
-     @order.user_id = current_user.id 
-     limits = Order.where(t_range: @order.t_range, date: @order.date).count
-     
+     @order.user_id = current_user.id
+     limits = Order.where(slot_id: @order.slot_id, date: @order.date).count
       if params[:back]
       render :action => 'index'
-      elsif limits < 2
-      @order.save
+      elsif limits < @order.slot.max_num.to_i
+      @order.save!
       render :action => 'done'
       else
       flash[:notice] = "予約枠を超えています。時間帯を変えて入れなおしてください"
@@ -64,7 +64,15 @@ before_action :authenticate_user!
   private
   
   def order_params
-  params.require(:order).permit(:truck, :cntr_number, :date, :t_range, :purpose)
+    params.require(:order).permit(:truck, :cntr_number, :date, :purpose, :slot_id, :booking)
+  end
+  
+  def set_params
+    @order = Order.new(order_params)
+  end
+  
+  def authorized_user
+    redirect_to action: :index unless current_user.authority == 1
   end
 
 end

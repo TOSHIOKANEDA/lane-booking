@@ -1,0 +1,15 @@
+<%if current_user.authority == 1 %>
+
+    <p>現在の開始時刻：<%= @slot.end_time %></p>
+    <p>現在の終了時刻：<%= @slot.begin_time %></p>
+    <p>現在の上限台数：<%= @slot.max_num %>台</p>
+
+    <%= form_with url: slot_path(params[:id]), method: :patch, local: true do |f| %>
+      <p>開始時刻：<%= f.select :begin_time, ["08時00分","08時30分","09時00分","09時30分","10時00分","10時30分","11時00分","11時30分","12時00分","12時30分"] %></p>
+      <p>終了時刻：<%= f.select :end_time, ["08時00分","08時30分","09時00分","09時30分","10時00分","10時30分","11時00分","11時30分","12時00分","12時30分"] %></p>
+      <p>上限台数：<%= f.number_field :max_num, min: 1, max: 100 %></p>
+    <%= f.submit '変更する'%>
+    <% end %>
+<% end %>
+
+<%= link_to "インデックス画面へ戻る", root_path %>

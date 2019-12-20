@@ -4,28 +4,10 @@
 <p>トラックのナンバー：<%= f.hidden_field :truck %><%= @order.truck %></p>
 <p>日付：<%= f.hidden_field :date %><%= @order.date %></p>
 <p>コンテナ番号：<%= f.hidden_field :cntr_number %><%= @order.cntr_number %></p>
-<%= f.hidden_field :t_range %><% @order.t_range %>
-<%= f.hidden_field :purpose %><% @order.purpose %>
+<p>時間帯：<%= f.hidden_field :slot_id %><%= @order.slot.begin_time %>から<%=@order.slot.end_time%></p>
+<p>Booking番号：<%= f.hidden_field :booking %><%= @order.booking %></p>
 <p>
-
-時間帯：<%= "９時から１０時" if @order.t_range == "9-10"%>
-<%= "10時から11時" if @order.t_range == "10-11" %>
-<%= "11時から12時" if @order.t_range == "11-12" %>
-<%= "12時から13時" if @order.t_range == "12-13" %>
-<%= "13時から14時" if @order.t_range == "13-14" %>
-<%= "14時から15時" if @order.t_range == "14-15" %>
-<%= "15時から16時" if @order.t_range == "15-16" %>
-<%= "8:00から8:30" if @order.t_range == "8-8.5" %>
-<%= "8:30から9:00" if @order.t_range == "8.5-9" %>
-<%= "9:00から9:30" if @order.t_range == "9-9.5" %>
-<%= "9:30から10:00" if @order.t_range == "9.5-10" %>
-<%= "10:00から10:30" if @order.t_range == "10-10.5" %>
-<%= "10:30から11:00" if @order.t_range == "10.5-11" %>
-<%= "11:00から11:30" if @order.t_range == "10.5-11" %>
-
-</p>
-<p>
-種別：
+種別：<%= f.hidden_field :purpose %>
 <%= "空バンPICK" if @order.purpose == 1 %>
 <%= "実入り搬入" if @order.purpose == 2 %>
 <%= "実入り搬出" if @order.purpose == 3 %>

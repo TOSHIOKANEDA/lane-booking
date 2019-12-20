@@ -11,28 +11,18 @@
   
   <div class ="container">
     <%if current_user.authority == 4 %>
-        <%= form_for(@order, url: { action: :confirm }) do |f| %>
-          <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
-          <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
-          <div class = "elements">（テスト）日にち
-            <%= f.select :date, 
-            ["2020-01-15","2020-01-16"],
+      <%= form_for(@order, url: { action: :confirm }) do |f| %>
+        <div class ="elements">トラックのナンバー<%= f.text_field :truck ,:required => true%></div>
+        <div class = "elements">コンテナ番号<%= f.text_field :cntr_number ,:required => true%></div>
+        <div class = "elements">日付<%= f.date_field :date, :required => true%></div>
+        <div class = "elements">予約時間<%= f.select :slot_id, Slot.all.map{|o| [o.begin_time, o.id]}, :required => true%></div>
+        <div class = "elements">B/L番号<%= f.text_field :booking, :prompt => "選択してください" ,:required => true%></div>
+        <div class = "elements">予約種別<%= f.select :purpose, 
+            [["実入り搬出", 1],
+            ["実入り搬入", 2]],
             :prompt => "選択してください" ,:required => true%></div>
-          <div class = "elements">（テスト）種別<%= f.select :purpose, 
-            [["実入り搬出", "1"]],
-            :prompt => "選択してください" ,:required => true%></div>
-          <div class = "elements">時間帯<%= f.select :t_range,
-            [["08:00から08:30", "8-8.5"],
-            ["08:30から09:00", "8.5-9"],
-            ["09:00から09:30", "9-9.5"],
-            ["09:30から10:00", "9.5-10"],
-            ["10:00から10:30", "10-10.5"],
-            ["10:30から11:00", "10.5-11"],
-            ["11:00から11:30", "11-11.5"]], 
-            :prompt => "選択してください" ,:required => true %></div>
-          <div class = "elements"><%= f.submit '確認画面へ'%></div>
-          <% end %>
-        
+        <div class = "elements"><%= f.submit '確認画面へ'%></div>
+      <% end %>
     <% end %>
           
     <%if current_user.authority == 2 %>

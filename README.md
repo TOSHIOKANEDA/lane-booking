@@ -11,12 +11,13 @@
 - Slot数をauthorityから変数で変更
 - Slot設定時刻をauthorityから変数で変更
 - 次の作業予定：
-  1."begin_time, :end_time, :max_num"のカラムをSlotsに作る。既存のカラムは型が違うのでダメ。stringで再度作成する。indexをはる。
+  1."begin_time, :end_time, :max_num"のカラムをSlotsに作る。既存のカラムは型が違うのでダメ。stringで再度作成する。orderテーブルにindexをはる。
   2.３つの値が、orders#authorityから設定してSlotsに値を入れれるようにする。
-  3. orderテーブルにslot_idを追加する
+  ３. f.selectからslot_idに値が入っていかない問題を解決する。slot_idの型が問題？slot_idにはどうも値は入る。Controllerからだけ値が入る。。。どうもuser_idにforeign_keyが入っていない。このあたりが問題か？
+      とりあえず一度user_idを削除してみた。再度user_idを作成して再度トライする
   4. f.selectで[1..30]とかで値をとって、max_numに代入。slot_id.count<max_numとかでMax値判定
   5.form_withやform_forのselectタグにend_time begin_timeを呼び出せるようにする。参考資料貼っとく
   > http://tech.portalshit.net/2011/12/01/how-to-set-escape-false-on-rails-select-tag/
-  > https://qiita.com/colorrabbit/items/b58888506e41d1370fd1
+  > https://qiita.com/colorrabaddbit/items/b58888506e41d1370fd1
   >> form_for @slot do |f|からの
   >> <%= f.select :slot_id, Slot.all.map{|s| [s.begin_time, s.end_time]} %>

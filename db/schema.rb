@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_132149) do
+ActiveRecord::Schema.define(version: 2019_12_20_062741) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "cntr_number"
@@ -22,21 +22,21 @@ ActiveRecord::Schema.define(version: 2019_12_12_132149) do
     t.integer "purpose"
     t.string "booking"
     t.string "ps_card"
+    t.bigint "slot_id"
     t.bigint "user_id"
+    t.index ["slot_id"], name: "index_orders_on_slot_id"
+    t.index ["slot_id"], name: "slot_id"
+    t.index ["slot_id"], name: "slot_id_2"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "slots", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.date "date"
-    t.integer "am9_10"
-    t.integer "am10_11"
-    t.integer "am11_12"
-    t.integer "pm12_13"
-    t.integer "pm13_14"
-    t.integer "pm14_15"
-    t.integer "pm15_16"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "begin_time"
+    t.string "end_time"
+    t.string "max_num"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -55,5 +55,6 @@ ActiveRecord::Schema.define(version: 2019_12_12_132149) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "orders", "slots"
   add_foreign_key "orders", "users"
 end
